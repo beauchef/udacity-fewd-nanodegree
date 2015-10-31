@@ -1,0 +1,133 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+
+/* HEADING */
+
+.header-content {
+  height: 100%;
+}
+
+header {
+  height: 25vw;
+  max-height: 80px;
+  width: 100%;
+}
+
+.udacity-logo {
+  max-height: 100%;
+  width: 15%;
+  float: left;
+}
+
+h1 {
+  float: left;
+  padding-top: 15px;
+  width: 80%;
+  font-weight: normal;
+  color: #4E4C4C;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 380px) {
+  h1 {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 464px) and (min-width: 381px) {
+  h1 {
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 465px) {
+  h1 {
+    font-size: 32px;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .header-content {
+    padding-top: 5px;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .header-content {
+    padding-top: 5px;
+  }
+}
+
+
+/* MAIN SECTIONS */
+
+.hero {
+  padding: 1em;
+  max-width: 100%;
+  background-color: #075088;
+  color: white;
+}
+
+.my-picture {
+  display: block;
+  margin: 0 auto 30px;
+  width: 30%;
+  border: 2px solid white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.my-main-profile-info {
+  max-width: 100%;
+  margin: 0px auto 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.iama {
+  max-width: 100%;
+  color: #969696;
+  letter-spacing: 0.05em;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0;
+}
+
+.my-info {
+  max-width: 100%;
+  font-size: 18px;
+  padding: 20px;
+  margin: 0 auto 20px;
+}
+
+.my-info:last-of-type {
+  margin: 0;
+}
+
+.my-name {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.my-job {
+  color: gray;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.about-me {
+  padding: 1em;
+}
