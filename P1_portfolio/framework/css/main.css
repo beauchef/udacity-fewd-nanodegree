@@ -1,0 +1,124 @@
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+p {
+    padding: 10px;
+}
+
+h1 {
+    color: #bcbbbb;
+    font-size: 48px;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #bcbbbb;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+h3 {
+    color: #747704;
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.left {
+    float: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    float: right;
+}
+
+.grid {
+    max-width: 754px;
+    alignment: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+.col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    margin: 0px;
+    padding: 5px 35px 5px 0px;
+}
+
+.col-1.end, .col-2.end, .col-3.end, .col-4.end,
+.col-5.end, .col-6.end, .col-7.end, .col-8.end,
+.col-9.end, .col-10.end, .col-11.end, .col-12.end {
+    margin: 0px;
+    padding: 5px 0px;
+}
+
+.line-separator {
+    height: 3px;
+    background: #bcbbbb;
+    margin: 10px 0px 25px;
+}
