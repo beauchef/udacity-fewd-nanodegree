@@ -13,8 +13,8 @@ Udacity Front-end Web Developer Nanodegree
 * [Sublime Text](http://www.sublimetext.com/)
 * [JetBrains WebStorm](https://www.jetbrains.com/webstorm/)
 * [CodePen](http://codepen.io/)
-* Placeholders: [Placehold.it](http://placehold.it/), [Placepuppy.it](http://placepuppy.it/), [placekitten](http://placekitten.com/), [lorempixel](http://lorempixel.com/)
 * [Chrome Device Emulator](https://developer.chrome.com/devtools/docs/device-mode)
+* Placeholders: [Placehold.it](http://placehold.it/), [Placepuppy.it](http://placepuppy.it/), [placekitten](http://placekitten.com/), [lorempixel](http://lorempixel.com/)
 * Task Runners: [Grunt](http://gruntjs.com/), [Gulp](http://gulpjs.com/)
 
 ### HTML
