@@ -1,13 +1,14 @@
 {
-  "changeLang": "English",
+  "nav": {
+    "main": "Accueil",
+    "toggle": "Changer navigation",
+    "changeLang": "English"
+  },
   "me": {
     "job": "Développeur web"
   },
   "featured": {
     "title": "Réalisations",
-    "project1": "Appify",
     "project2": "Tournesol",
-    "project3": "Bokeh",
-    "link": "Lien vers le projet"
   }
 }

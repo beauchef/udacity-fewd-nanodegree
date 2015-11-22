@@ -3,6 +3,9 @@
  * Created on 11/22/2015.
  *
  * TODO: make sure localization works once additional pages are placed in sub-folders.
+ * TODO: use grunt and bower
+ * TODO: minify JavaScript
+ * TODO: minify CSS
  */
 
 $(document).ready(function() {

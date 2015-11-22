@@ -3,10 +3,6 @@
  */
 
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
     font-family: "Lato", sans-serif;
     font-weight: 300;
     color: #747704;
@@ -41,9 +37,21 @@
     margin: 10px 0px 25px;
 }
 
+/** Navigation bar */
+.navbar {
+    background-color: rgba(116, 119, 4, 0.35);
+}
+
 /** Links */
 a,
 a:hover,
 a:visited {
     color: #747704;
+}
+
+/** Footer */
+.docs-footer {
+    padding: 40px 0;
+    color: #767676;
+    text-align: center;
 }

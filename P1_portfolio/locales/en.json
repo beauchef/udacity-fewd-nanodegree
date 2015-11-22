@@ -1,5 +1,9 @@
 {
-  "changeLang": "Français",
+  "nav": {
+    "main": "Homepage",
+    "toggle": "Toggle navigation",
+    "changeLang": "Français"
+  },
   "me": {
     "job": "Web Developer"
   },
@@ -8,6 +12,11 @@
     "project1": "Appify",
     "project2": "Sunflower",
     "project3": "Bokeh",
-    "link": "Link to project"
+    "link1": "https://github.com/lodash/lodash",
+    "link2": "https://github.com/angular/angular",
+    "link3": "https://github.com/h5bp/html5-boilerplate",
+    "linktext1": "https://github.com/lodash/lodash",
+    "linktext2": "https://github.com/angular/angular",
+    "linktext3": "https://github.com/h5bp/html5-boilerplate"
   }
 }
