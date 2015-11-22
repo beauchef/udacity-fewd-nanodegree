@@ -9,14 +9,14 @@
   },
   "featured": {
     "title": "Featured Work",
-    "project1": "Appify",
-    "project2": "Sunflower",
-    "project3": "Bokeh",
-    "link1": "https://github.com/lodash/lodash",
-    "link2": "https://github.com/angular/angular",
-    "link3": "https://github.com/h5bp/html5-boilerplate",
-    "linktext1": "https://github.com/lodash/lodash",
-    "linktext2": "https://github.com/angular/angular",
-    "linktext3": "https://github.com/h5bp/html5-boilerplate"
+    "project1": "Bootstrap",
+    "project2": "jQuery",
+    "project3": "i18next",
+    "link1": "http://getbootstrap.com/",
+    "link2": "https://jquery.com/",
+    "link3": "http://i18next.com/",
+    "linktext1": "http://getbootstrap.com/",
+    "linktext2": "https://jquery.com/",
+    "linktext3": "http://i18next.com/"
   }
 }
