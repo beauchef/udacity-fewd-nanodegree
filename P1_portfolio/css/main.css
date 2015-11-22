@@ -29,12 +29,21 @@
     margin: 10px 0;
 }
 
-/** Simple line separator */
-.line-separator {
-    height: 3px;
+/** Line separators */
+.line-separator,
+.footer-separator {
     border: 0;
     background: #bcbbbb;
-    margin: 10px 0px 25px;
+}
+
+.line-separator {
+    height: 3px;
+    margin: 10px 0 25px;
+}
+
+.footer-separator {
+    height: 1px;
+    margin: 50px 0;
 }
 
 /** Navigation bar */
