@@ -51,6 +51,10 @@
     background-color: rgba(116, 119, 4, 0.35);
 }
 
+.icon-bar {
+    background-color: #747704;
+}
+
 /** Links */
 a,
 a:hover,
