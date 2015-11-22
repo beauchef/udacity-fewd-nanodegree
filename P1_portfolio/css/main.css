@@ -25,8 +25,15 @@
     color: #bcbbbb;
 }
 
+/** Logo and banner */
 .logo {
     margin: 10px 0;
+}
+
+.logo-container,
+.banner-container {
+    max-height: 300px;
+    overflow: hidden;
 }
 
 /** Line separators */
