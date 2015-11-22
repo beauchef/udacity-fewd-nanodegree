@@ -95,7 +95,11 @@
 
                 <div class="row">
                     <div class="col-md-12 banner-container">
-                        <img alt="banner" class="img-responsive banner" src="img/program.jpg">
+                        <picture>
+                            <source media="(min-width: 1000px)" srcset="img/program-big.jpg">
+                            <source media="(min-width: 500px)" srcset="img/program-medium.jpg">
+                            <img class="img-responsive" alt="Banner of a program" src="img/program-small.jpg">
+                        </picture>
                     </div>
                 </div>
 
@@ -107,8 +111,10 @@
 
                 <div class="row text-center">
                     <section class="col-md-4">
-                        <img alt="Appify" class="img-responsive" src="img/c10_computer.jpg" data-toggle="modal"
-                             data-target="#modal-appify">
+                        <picture>
+                            <source media="(min-width: 500px)" srcset="img/c10_computer-medium.jpg">
+                            <img alt="Project 1" class="img-responsive" src="img/c10_computer-small.jpg">
+                        </picture>
 
                         <h3 class="text-uppercase" data-i18n="featured.project1">[Project 1]</h3>
 
@@ -117,8 +123,10 @@
                         </p>
                     </section>
                     <section class="col-md-4">
-                        <img alt="Sunflower" class="img-responsive" src="img/cat_at_computer.jpg"
-                             data-toggle="modal" data-target="#modal-sunflower">
+                        <picture>
+                            <source media="(min-width: 500px)" srcset="img/cat_at_computer-medium.jpg">
+                            <img alt="Project 2" class="img-responsive" src="img/cat_at_computer-small.jpg">
+                        </picture>
 
                         <h3 class="text-uppercase" data-i18n="featured.project2">[Project 2]</h3>
 
@@ -127,8 +135,10 @@
                         </p>
                     </section>
                     <section class="col-md-4">
-                        <img alt="Bokeh" class="img-responsive" src="img/keyboard.jpg" data-toggle="modal"
-                             data-target="#modal-bokeh">
+                        <picture>
+                            <source media="(min-width: 500px)" srcset="img/keyboard-medium.jpg">
+                            <img alt="Project 3" class="img-responsive" src="img/keyboard-small.jpg">
+                        </picture>
 
                         <h3 class="text-uppercase" data-i18n="featured.project3">[Project 3]</h3>
 
@@ -154,78 +164,6 @@
                 </p>
             </div>
         </footer>
-
-        <div class="modal fade" id="modal-appify" tabindex="-1" role="dialog" aria-labelledby="modal-appify-label">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h4 class="modal-title" id="modal-appify-label">Bokeh</h4>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/7/">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modal-sunflower" tabindex="-1" role="dialog" aria-labelledby="modal-sunflower-label">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h4 class="modal-title" id="modal-sunflower-label">Bokeh</h4>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/6/">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modal-bokeh" tabindex="-1" role="dialog" aria-labelledby="modal-bokeh-label">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h4 class="modal-title" id="modal-bokeh-label">Bokeh</h4>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/2/">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </body>
 </html>
