@@ -1,130 +1,183 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Framework Test page</title>
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
-    <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-</head>
-<body>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Framework Test page</title>
+        <meta name="description" content="Jean-François Beauchef's portfolio">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <img alt="logo" class="img-responsive logo" src="http://lorempixel.com/100/100/abstract/4/">
-        </div>
-        <div class="col-md-8 text-right text-uppercase">
-            <h1 class="text-thin text-huge">Jane Doette</h1>
-            <h4>Front-end Ninja</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <hr class="line-separator">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <img alt="banner" class="img-responsive" src="http://lorempixel.com/g/1140/350/nature/3/">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-pale">
-            <h2>Featured Work</h2>
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-md-4">
-            <img alt="Appify" class="img-responsive" src="http://lorempixel.com/555/300/abstract/7/" data-toggle="modal" data-target="#modal-appify">
-            <h3 class="text-uppercase">Appify</h3>
-            <p><a href="http://github.com">Link to project</a></p>
-        </div>
-        <div class="col-md-4">
-            <img alt="Sunflower" class="img-responsive" src="http://lorempixel.com/555/300/abstract/6/" data-toggle="modal" data-target="#modal-sunflower">
-            <h3 class="text-uppercase">Sunflower</h3>
-            <p><a href="http://github.com">Link to project</a></p>
-        </div>
-        <div class="col-md-4">
-            <img alt="Bokeh" class="img-responsive" src="http://lorempixel.com/555/300/abstract/2/" data-toggle="modal" data-target="#modal-bokeh">
-            <h3 class="text-uppercase">Bokeh</h3>
-            <p><a href="http://github.com">Link to project</a></p>
-        </div>
-    </div>
-</div>
+        <link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:100,300,400">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
 
-<div class="modal fade" id="modal-appify" tabindex="-1" role="dialog" aria-labelledby="modal-appify-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 class="modal-title" id="modal-appify-label">Bokeh</h4>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/i18next-1.11.1.min.js"></script>
+        <script src="js/app.js"></script>
+        <!--
+            I used Boilerplate as my foundation, but then switched to the most recent versions
+            of jQuery and Bootstrap. I also decided to use the i18next library for localization,
+            after searching on the web. Finally, I used schemas to make sure the page would be
+            easy to find once it's online. I added a Person item on the enclosing div container.
+            I checked that the result could be parsed by Google by going there:
+            https://developers.google.com/structured-data/testing-tool/
+        -->
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container" itemscope itemtype="https://schema.org/Person">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a class="change-lang" href="#" data-i18n="changeLang"></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <img alt="logo" class="img-responsive logo" src="img/headshot.jpg">
+                </div>
+                <div class="col-md-10 text-right text-uppercase">
+                    <h1 class="text-thin text-huge" itemprop="name">Jean-François Beauchef</h1>
+                    <h4 itemprop="jobTitle" data-i18n="me.job">Web Developer</h4>
+
+                    <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span itemprop="addressLocality">St-Lambert</span>,
+                        <span itemprop="addressRegion">QC</span>,
+                        <span itemprop="addressCountry">Canada</span>
+                    </p>
+
+                    <p>
+                        <a href="http://jean-francois.beauchef.com" itemprop="url">jean-francois.beauchef.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="line-separator">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <img alt="banner" class="img-responsive" src="http://lorempixel.com/g/1140/350/nature/3/">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-pale">
+                    <h2 data-i18n="featured.title">[Featured Work]</h2>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <img alt="Appify" class="img-responsive" src="http://lorempixel.com/555/300/abstract/7/" data-toggle="modal"
+                         data-target="#modal-appify">
+
+                    <h3 class="text-uppercase" data-i18n="featured.project1">[Project 1]</h3>
+
+                    <p><a href="http://github.com" data-i18n="featured.link">[Link]</a></p>
+                </div>
+                <div class="col-md-4">
+                    <img alt="Sunflower" class="img-responsive" src="http://lorempixel.com/555/300/abstract/6/"
+                         data-toggle="modal" data-target="#modal-sunflower">
+
+                    <h3 class="text-uppercase" data-i18n="featured.project2">[Project 2]</h3>
+
+                    <p><a href="http://github.com" data-i18n="featured.link">[Link]</a></p>
+                </div>
+                <div class="col-md-4">
+                    <img alt="Bokeh" class="img-responsive" src="http://lorempixel.com/555/300/abstract/2/" data-toggle="modal"
+                         data-target="#modal-bokeh">
+
+                    <h3 class="text-uppercase" data-i18n="featured.project3">[Project 3]</h3>
+
+                    <p><a href="http://github.com" data-i18n="featured.link">[Link]</a></p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="modal-appify" tabindex="-1" role="dialog" aria-labelledby="modal-appify-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="modal-title" id="modal-appify-label">Bokeh</h4>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-2 text-right">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="modal-body">
+                        <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/7/">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
-                <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/7/">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
-    </div>
-</div>
 
-<div class="modal fade" id="modal-sunflower" tabindex="-1" role="dialog" aria-labelledby="modal-sunflower-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 class="modal-title" id="modal-sunflower-label">Bokeh</h4>
+        <div class="modal fade" id="modal-sunflower" tabindex="-1" role="dialog" aria-labelledby="modal-sunflower-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="modal-title" id="modal-sunflower-label">Bokeh</h4>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-2 text-right">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="modal-body">
+                        <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/6/">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
-                <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/6/">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
-    </div>
-</div>
 
-<div class="modal fade" id="modal-bokeh" tabindex="-1" role="dialog" aria-labelledby="modal-bokeh-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 class="modal-title" id="modal-bokeh-label">Bokeh</h4>
+        <div class="modal fade" id="modal-bokeh" tabindex="-1" role="dialog" aria-labelledby="modal-bokeh-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="modal-title" id="modal-bokeh-label">Bokeh</h4>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-2 text-right">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="modal-body">
+                        <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/2/">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
-                <img alt="Appify" class="img-responsive" src="http://lorempixel.com/600/400/abstract/2/">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
-    </div>
-</div>
 
-</body>
+    </body>
 </html>

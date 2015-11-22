@@ -1,13 +1,18 @@
+/**
+ * Main CSS
+ */
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     font-weight: 300;
     color: #747704;
 }
 
+/** Text formatting */
 .text-thin {
     font-weight: 100;
 }
@@ -17,7 +22,7 @@
 }
 
 .text-huge {
-    font-size: 60px;
+    font-size: 48px;
 }
 
 .text-pale {
@@ -25,15 +30,20 @@
 }
 
 .logo {
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
+/** Simple line separator */
 .line-separator {
     height: 3px;
+    border: 0;
     background: #bcbbbb;
     margin: 10px 0px 25px;
 }
 
-a, a:hover, a:visited {
+/** Links */
+a,
+a:hover,
+a:visited {
     color: #747704;
 }

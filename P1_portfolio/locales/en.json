@@ -1,0 +1,13 @@
+{
+  "changeLang": "Français",
+  "me": {
+    "job": "Web Developer"
+  },
+  "featured": {
+    "title": "Featured Work",
+    "project1": "Appify",
+    "project2": "Sunflower",
+    "project3": "Bokeh",
+    "link": "Link to project"
+  }
+}

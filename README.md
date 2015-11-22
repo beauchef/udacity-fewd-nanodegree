@@ -24,6 +24,8 @@ Udacity Front-end Web Developer Nanodegree
 * [HTML validator](http://validator.w3.org/#validate_by_input)
 * [Content sectioning](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Content_sectioning)
 * [Sections and Outlines of an HTML5 Document - The HTML5 Outline Algorithm](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document#The_HTML5_Outline_Algorithm)
+* [HTML 5 Boilerplate](https://html5boilerplate.com/)
+* [Organization of Schemas](http://schema.org/docs/schemas.html)
 
 ### CSS
 
