@@ -55,4 +55,4 @@ Udacity Front-end Web Developer Nanodegree
 
 ### Guide to layout semantic tags
 
-![Udacity semantic tags guide](master/udacity_semantic_tags.png)
+![Udacity semantic tags guide](udacity_semantic_tags.png)
