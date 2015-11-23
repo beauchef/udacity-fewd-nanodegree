@@ -26,6 +26,7 @@ Udacity Front-end Web Developer Nanodegree
 * [Sections and Outlines of an HTML5 Document - The HTML5 Outline Algorithm](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document#The_HTML5_Outline_Algorithm)
 * [HTML 5 Boilerplate](https://html5boilerplate.com/)
 * [Organization of Schemas](http://schema.org/docs/schemas.html)
+* [Benefits of HTML5 and Semantic Markup](https://www.webmechanix.com/advantages-of-html5-and-semantic-markup)
 
 ### CSS
 
@@ -51,3 +52,7 @@ Udacity Front-end Web Developer Nanodegree
 
 * [MDN CSS Font Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
 * [Google Fonts](https://www.google.com/fonts)
+
+### Guide to layout semantic tags
+
+![Udacity semantic tags guide](master/udacity_semantic_tags.png)
