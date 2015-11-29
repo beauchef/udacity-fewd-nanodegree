@@ -105,6 +105,30 @@ var bio = {
 var education = {
     schools: [
         {
+            name: 'University of Sherbrooke',
+            location: 'Longueuil, Canada',
+            degree: 'Short graduate program',
+            majors: 'Computer Security',
+            dates: 2017,
+            url: 'http://www.usherbrooke.ca/'
+        },
+        {
+            name: 'University of Sherbrooke',
+            location: 'Longueuil, Canada',
+            degree: 'Short graduate program',
+            majors: 'Ethics',
+            dates: 2017,
+            url: 'http://www.usherbrooke.ca/'
+        },
+        {
+            name: 'University of Sherbrooke',
+            location: 'Longueuil, Canada',
+            degree: 'DESS (2nd cycle diploma)',
+            majors: 'Information Technology',
+            dates: 2006,
+            url: 'http://www.usherbrooke.ca/'
+        },
+        {
             name: 'University of Montreal',
             location: 'Montreal, Canada',
             degree: 'Bachelor',
@@ -234,14 +258,30 @@ var work = {
 var projects = {
     projects: [
         {
-            title: 'My fictional project',
+            title: 'My personal web site',
+            url: 'http://jean-francois.beauchef.com/',
+            dates: 2015,
+            description: 'My own web site, written originally in PHP using Symfony, but that will change.',
+            images: []
+        },
+        {
+            title: 'My GitHub page',
+            url: 'http://beauchef.github.io/',
             dates: 2015,
             description: 'A project about great things',
-            images: ['http://www.example.com/image1.jpg', 'http://www.example.com/image2.jpg']
+            images: ['http://lorempixel.com/g/1140/350/nature/3/']
         }
     ],
     display: function() {
-        // TODO
+        for (var project of this.projects) {
+            $('#projects').append(HTMLprojectStart);
+            $('.project-entry:last').append(getHtmlWithDataAndHref(HTMLprojectTitle, project.title, project.url));
+            $('.project-entry:last').append(getHtmlWithData(HTMLprojectDates, project.dates));
+            $('.project-entry:last').append(getHtmlWithData(HTMLprojectDescription, project.description));
+            for (var image of project.images) {
+                $('.project-entry:last').append(getHtmlWithData(HTMLprojectImage, image));
+            }
+        }
     }
 }
 
