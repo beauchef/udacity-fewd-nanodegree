@@ -7,6 +7,12 @@
  * I added some "url" fields in some of the objects below, so the links work.
  * But besides that, the objects follow the required schema.
  *
+ * TODO:
+ * - Add additional info to Google Map pins in helper.js, line 174
+ * - Add some JavaScript interactivity
+ * - Customize the CSS
+ * - Review Udacity style guide
+ *
  */
 
 
