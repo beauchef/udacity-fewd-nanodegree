@@ -8,7 +8,6 @@
  * But besides that, the objects follow the required schema.
  *
  * TODO:
- * - Add additional info to Google Map pins in helper.js, line 174
  * - Add some JavaScript interactivity (d3js.org)
  * - Customize the CSS
  * - Review Udacity style guide
