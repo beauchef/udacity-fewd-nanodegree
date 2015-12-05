@@ -8,11 +8,15 @@
  * But besides that, the objects follow the required schema.
  *
  * TODO:
- * - Add some JavaScript interactivity (d3js.org)
  * - Customize the CSS
  * - Review Udacity style guide
  *
  */
+
+
+
+var OPEN_WEATHER_API_KEY = '3e7fc8acf298aa1bd69956e9724bbe5d'; // My own personal Open Weather API key. :)
+
 
 
 /**
@@ -36,6 +40,32 @@ function getHtmlWithData(htmlString, data) {
  */
 function getHtmlWithDataAndHref(htmlString, data, href) {
     return htmlString.replace('%data%', data).replace('#', href);
+}
+
+/**
+ * Convert degrees from kelvin to celcius
+ *
+ * @param degrees in kelvin
+ * @param decimals
+ * @returns {string}
+ */
+function convertKelvinToCelcius(degrees, decimals) {
+    decimals = ((decimals === undefined) || (decimals !== parseInt(decimals, 10))) ? 0 : decimals;
+    var result = degrees - 273.15;
+    return result.toFixed(decimals);
+}
+
+/**
+ * Convert degrees from kelvin to fahrenheit
+ *
+ * @param degrees in kelvin
+ * @param decimals
+ * @returns {string}
+ */
+function convertKelvinToFahrenheit(degrees, decimals) {
+    decimals = ((decimals === undefined) || (decimals !== parseInt(decimals, 10))) ? 0 : decimals;
+    var result = ((degrees * 9) / 5) - 459.67;
+    return result.toFixed(decimals);
 }
 
 /**
@@ -316,12 +346,35 @@ var map = {
     }
 };
 
+/**
+ * Current weather in Montreal, Canada.
+ *
+ * @type {{display: weather.display}}
+ */
+var weather = {
+    display: function() {
+        $.get( "http://api.openweathermap.org/data/2.5/weather?q=Montreal,ca&appid=" + OPEN_WEATHER_API_KEY,
+            function( data ) {
+                var tempCelcius = convertKelvinToCelcius(data.main.temp);
+                var tempFahrenheit = convertKelvinToFahrenheit(data.main.temp);
+                var weatherIconURL = 'http://openweathermap.org/img/w/'+data.weather[0].icon+'.png';
+                $('#currentWeather').append(HTMLweatherStart);
+                $('.weather').append(getHtmlWithData(HTMLweatherLocation, 'Current weather in ' + data.name + ', ' + data.sys.country));
+                $('.weather').append(getHtmlWithData(HTMLweatherTemperature, tempCelcius + ' C / ' + tempFahrenheit + ' F'));
+                $('.weather').append(getHtmlWithData(HTMLweatherDescription, data.weather[0].description));
+                $('.weather').append(getHtmlWithData(HTMLweatherIcon, weatherIconURL));
+            }
+        );
+    }
+}
+
 
 
 /**
  * Display resume
  */
 bio.display();
+weather.display();
 education.display();
 work.display();
 projects.display();

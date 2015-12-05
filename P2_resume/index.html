@@ -19,6 +19,7 @@
         <ul id="topContacts" class="flex-box"></ul>
     </div>
     <div style="clear: both;"></div>
+    <div id="currentWeather"></div>
     <div id="workExperience" class="gray">
         <h2>Work Experience</h2>
     </div>
@@ -45,6 +46,9 @@
     if (document.getElementsByTagName('h1').length === 0) {
         document.getElementById('header').style.display = 'none';
     }
+//    if (document.getElementsByClassName('weather').length === 0) {
+//        document.getElementById('currentWeather').style.display = 'none';
+//    }
     if (document.getElementsByClassName('work-entry').length === 0) {
         document.getElementById('workExperience').style.display = 'none';
     }
