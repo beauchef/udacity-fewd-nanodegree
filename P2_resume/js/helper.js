@@ -12,12 +12,13 @@ Cameron Pittman
 These are HTML strings. As part of the course, you'll be using JavaScript functions
 replace the %data% placeholder text you see in them.
 */
-var HTMLheaderName = '<h1 id="name">%data%</h1>';
-var HTMLheaderRole = '<span>%data%</span><hr/>';
+var HTMLheaderName = '<h1 id="name" itemprop="name">%data%</h1>';
+var HTMLheaderRole = '<span itemprop="jobTitle">%data%</span><hr/>';
 
 var HTMLcontactGeneric = '<li class="flex-item"><span class="light-gray-text">%contact%</span><span class="white-text">%data%</span></li>';
+var HTMLlocation = '<li class="flex-item" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span class="orange-text">location</span><span class="white-text" itemprop="addressLocality">%data%</span></li>';
 
-var HTMLbioPic = '<img src="%data%" class="biopic">';
+var HTMLbioPic = '<img alt="My picture" src="%data%" class="biopic">';
 var HTMLwelcomeMsg = '<div class="container"><span class="welcome-message">%data%</span></div>';
 
 var HTMLskillsStart = '<div class="container"><h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills"></ul></div>';
@@ -27,7 +28,7 @@ var HTMLweatherStart = '<div class="weather"></div>';
 var HTMLweatherLocation = '<div class="weatherLocation">%data%</div>';
 var HTMLweatherTemperature = '<div class="weatherTemperature">%data%</div>';
 var HTMLweatherDescription = '<div class="weatherDescription">%data%</div>';
-var HTMLweatherIcon = '<div class="weatherIcon"><img src="%data%"></div>';
+var HTMLweatherIcon = '<div class="weatherIcon"><img alt="Image of current weather" src="%data%"></div>';
 
 var HTMLworkStart = '<div class="work-entry"></div>';
 var HTMLworkEmployer = '<a href="#">%data%';
@@ -40,7 +41,7 @@ var HTMLprojectStart = '<div class="project-entry"></div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
 var HTMLprojectDescription = '<p><br>%data%</p>';
-var HTMLprojectImage = '<img class="img-responsive" src="%data%">';
+var HTMLprojectImage = '<img alt="Project image" class="img-responsive" src="%data%">';
 
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';

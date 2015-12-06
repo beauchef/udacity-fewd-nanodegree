@@ -7,9 +7,6 @@
  * I added some "url" fields in some of the objects below, so the links work.
  * But besides that, the objects follow the required schema.
  *
- * TODO:
- * - Review Udacity style guide
- *
  */
 
 
@@ -19,7 +16,7 @@ var OPEN_WEATHER_API_KEY = '3e7fc8acf298aa1bd69956e9724bbe5d'; // My own persona
 
 
 /**
- * Get HTML template bit with data passed
+ * @description Get HTML template bit with data passed
  *
  * @param htmlString HTML template bit
  * @param data string to replace %data% placeholder
@@ -30,7 +27,7 @@ function getHtmlWithData(htmlString, data) {
 }
 
 /**
- * Get HTML template bit with data and URL passed
+ * @description Get HTML template bit with data and URL passed
  *
  * @param htmlString HTML template bit
  * @param data string to replace %data% placeholder
@@ -42,7 +39,7 @@ function getHtmlWithDataAndHref(htmlString, data, href) {
 }
 
 /**
- * Convert degrees from kelvin to celcius
+ * @description Convert degrees from kelvin to celcius
  *
  * @param degrees in kelvin
  * @param decimals
@@ -55,7 +52,7 @@ function convertKelvinToCelcius(degrees, decimals) {
 }
 
 /**
- * Convert degrees from kelvin to fahrenheit
+ * @description Convert degrees from kelvin to fahrenheit
  *
  * @param degrees in kelvin
  * @param decimals
@@ -68,7 +65,7 @@ function convertKelvinToFahrenheit(degrees, decimals) {
 }
 
 /**
- * Reverse the content of a string
+ * @description Reverse the content of a string
  *
  * @param input string to be reversed
  * @returns {string}
@@ -83,7 +80,7 @@ function reverseString(input) {
 }
 
 /**
- * Decrypt a string using a simple algorithm.
+ * @description Decrypt a string using a simple algorithm.
  * Each character of the plaintextData variable is matched with a character of encryptedData.
  * The encryptedData variable is simply the reverse of plaintextData ('abcd' -> 'dcba')
  * Characters not found in encryptedData, are returned as-is.
@@ -110,21 +107,23 @@ function decrypt(input) {
 }
 
 /**
- * Bio data (header)
+ * @description Bio data (header)
  *
- * @type {{name: string, role: string, contacts: *[], welcomeMessage: string, skills: string[], biopic: string, display: bio.'display'}}
+ * @returns {{name: string, role: string, contacts: *[], welcomeMessage: string, skills: string[], biopic: string, display: bio.'display'}}
  */
 var bio = {
     name: 'Jean-François Beauchef',
     role: 'Web Developer',
     contacts: {
         mobile: '438-390-0252',
-        email: decrypt('afjW-eSjWhVbR@ifjPhcfe.hVX'),
+        email: decrypt('afjW-eSjWhVbR@ifjPhcfe.hVX'), // my encrypted email address
         github: 'beauchef',
         twitter: '@jf_beauchef',
         location: 'St-Lambert, Canada'
     },
-    welcomeMessage: 'Lorem ipsum dolor sit amet, mel ne illum eligendi perfecto, deleniti mediocritatem duo ut, ei duo tamquam dolorem deleniti. Eos timeam equidem necessitatibus ut. Nominavi voluptaria usu at, ex mel natum populo graeco. Et usu dolor debitis.',
+    welcomeMessage: 'Lorem ipsum dolor sit amet, mel ne illum eligendi perfecto, deleniti mediocritatem duo ut, ei duo ' +
+            'tamquam dolorem deleniti. Eos timeam equidem necessitatibus ut. Nominavi voluptaria usu at, ex mel natum ' +
+            'populo graeco. Et usu dolor debitis.',
     skills: [
         'Java and JEE', 'Spring Framework', 'Multiple SQL flavours', 'JavaScript and AngularJS'
     ],
@@ -133,7 +132,12 @@ var bio = {
         $('#header').prepend(getHtmlWithData(HTMLheaderRole, this.role));
         $('#header').prepend(getHtmlWithData(HTMLheaderName, this.name));
         for (var contactType of Object.keys(this.contacts)) {
-            var contact = getHtmlWithData(HTMLcontactGeneric, this.contacts[contactType]).replace('%contact%', contactType);
+            var contact;
+            if (contactType === 'location') {
+                contact = getHtmlWithData(HTMLlocation, this.contacts[contactType]);
+            } else {
+                contact = getHtmlWithData(HTMLcontactGeneric, this.contacts[contactType]).replace('%contact%', contactType);
+            }
             $('#topContacts').append(contact);
             $('#footerContacts').append(contact);
         }
@@ -147,9 +151,9 @@ var bio = {
 };
 
 /**
- * Education
+ * @description Education
  *
- * @type {{schools: *[], onlineCourses: *[], display: education.'display'}}
+ * @returns {{schools: *[], onlineCourses: *[], display: education.'display'}}
  */
 var education = {
     schools: [
@@ -222,9 +226,9 @@ var education = {
 };
 
 /**
- * Work experience
+ * @description Work experience
  *
- * @type {{jobs: *[], display: work.'display'}}
+ * @returns {{jobs: *[], display: work.'display'}}
  */
 var work = {
     jobs: [
@@ -299,9 +303,9 @@ var work = {
 };
 
 /**
- * Projects
+ * @description Projects
  *
- * @type {{schools: *[], display: projects.'display'}}
+ * @returns {{schools: *[], display: projects.'display'}}
  */
 var projects = {
     projects: [
@@ -334,9 +338,9 @@ var projects = {
 };
 
 /**
- * Google map
+ * @description Google map
  *
- * @type {{display: map.display}}
+ * @returns {{display: map.display}}
  */
 var map = {
     display: function() {
@@ -345,9 +349,9 @@ var map = {
 };
 
 /**
- * Current weather in Montreal, Canada.
+ * @description Current weather in Montreal, Canada.
  *
- * @type {{display: weather.display}}
+ * @returns {{display: weather.display}}
  */
 var weather = {
     display: function() {
@@ -364,12 +368,12 @@ var weather = {
             }
         );
     }
-}
+};
 
 
 
 /**
- * Display resume
+ * @description Display resume
  */
 bio.display();
 weather.display();
