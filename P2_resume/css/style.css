@@ -12,6 +12,7 @@ h6 {
   padding:0;
   margin:0;
   font-family: "Roboto", sans-serif;
+  color: #999;
 }
 
 .clear-fix {
@@ -20,13 +21,14 @@ h6 {
 
 .education-entry,
 .work-entry,
-.project-entry {
+.project-entry,
+.weather {
   padding: 0 5%;
 }
 
 h1 {
   font-size: 40px;
-  color: #f5a623;
+  color: #c9c9c9;
   line-height: 48px;
   display: inline;
 }
@@ -100,16 +102,16 @@ a {
 }
 
 #skills-h3 {
-  color: #f5ae23;
+  color: #c9c9c9;
   display: none;
 }
 
-.orange {
-  background-color: #f5ae23;
+.light-gray {
+  background-color: #c9c9c9;
 }
 
-.orange-text {
-  color: #f5ae23;
+.light-gray-text {
+  color: #c9c9c9;
 }
 
 .white-text {
@@ -123,13 +125,14 @@ a {
   clear:both;
 }
 
-.dark-gray {
-  background-color: #4a4a4a;
+.dark-blue {
+  background-color: #13274a;
 }
 
-/* TODO: Replace with image later */
 #header {
-  background-color: #484848;
+  background-color: #13274a;
+  background-image: url(http://lorempixel.com/1920/420/abstract/6/);
+  background-size: cover;
 }
 
 .flex-box {
@@ -166,6 +169,11 @@ span {
 
 #lets-connect {
   text-align: center;
+}
+
+/* weather portion */
+.weather {
+  text-align: right;
 }
 
 /* Media queries to handle various device widths */
