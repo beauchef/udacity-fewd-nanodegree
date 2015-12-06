@@ -23,7 +23,7 @@ h6 {
 .work-entry,
 .project-entry,
 .weather {
-  padding: 0 5%;
+  padding: 0 5% 20px;
 }
 
 h1 {
@@ -42,7 +42,6 @@ h2 {
 }
 
 h3 {
-  font-style: italic;
   font-size: 20px;
   color: #000;
   line-height: 22px;
@@ -63,22 +62,16 @@ h5 {
 
 }
 
-
-.date-text {
-  font-style: italic;
-  font-size: 14px;
-  color: #999;
-  line-height: 16px;
-  float: left;
-}
-
+.date-text,
 .location-text {
   font-style: italic;
   font-size: 14px;
   color: #999;
-  line-height: 16px;
-  float: right;
+}
 
+.description-text {
+  color: black;
+  display: inline-block;
 }
 
 p {
@@ -95,7 +88,6 @@ a {
 }
 
 .welcome-message {
-  font-style: italic;
   font-size: 18px;
   color: #f3f3f3;
   line-height: 28px;

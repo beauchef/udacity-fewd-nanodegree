@@ -18,20 +18,28 @@
         <ul id="topContacts" class="flex-box"></ul>
     </header>
     <main id="main">
-        <div style="clear: both;"></div>
-        <div id="currentWeather"></div>
-        <section id="workExperience" class="gray">
-            <h2>Work Experience</h2>
-        </section>
-        <section id="projects">
-            <h2>Projects</h2>
-        </section>
-        <section id="education" class="gray">
-            <h2>Education</h2>
-        </section>
-        <section id="mapDiv">
-            <h2>Where I've Lived and Worked</h2>
-        </section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 hidden-xs"></div>
+                <section id="currentWeather" class="col-sm-6 col-xs-12"></section>
+            </div>
+            <div class="row">
+                <section class="col-lg-4 col-sm-6 col-xs-12 container" id="workExperience">
+                    <h2>Work Experience</h2>
+                </section>
+                <section class="col-lg-4 col-sm-6 col-xs-12 container" id="projects">
+                    <h2>Projects</h2>
+                </section>
+                <section class="col-lg-4 col-sm-6 col-xs-12 container" id="education">
+                    <h2>Education</h2>
+                </section>
+            </div>
+            <div class="row">
+                <section id="mapDiv">
+                    <h2>Where I've Lived and Worked</h2>
+                </section>
+            </div>
+        </div>
     </main>
     <footer id="lets-connect" class="dark-blue">
         <h2 class="light-gray center-text">Let's Connect</h2>

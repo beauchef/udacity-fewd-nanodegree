@@ -8,7 +8,6 @@
  * But besides that, the objects follow the required schema.
  *
  * TODO:
- * - Customize the CSS
  * - Review Udacity style guide
  *
  */
@@ -125,7 +124,7 @@ var bio = {
         twitter: '@jf_beauchef',
         location: 'St-Lambert, Canada'
     },
-    welcomeMessage: 'Welcome!',
+    welcomeMessage: 'Lorem ipsum dolor sit amet, mel ne illum eligendi perfecto, deleniti mediocritatem duo ut, ei duo tamquam dolorem deleniti. Eos timeam equidem necessitatibus ut. Nominavi voluptaria usu at, ex mel natum populo graeco. Et usu dolor debitis.',
     skills: [
         'Java and JEE', 'Spring Framework', 'Multiple SQL flavours', 'JavaScript and AngularJS'
     ],
@@ -139,11 +138,11 @@ var bio = {
             $('#footerContacts').append(contact);
         }
         $('#header').append(getHtmlWithData(HTMLbioPic, this.biopic));
-        $('#header').append(getHtmlWithData(HTMLwelcomeMsg, this.welcomeMessage));
         $('#header').append(HTMLskillsStart);
         for (var skill of this.skills) {
             $('#skills').append(getHtmlWithData(HTMLskills, skill));
         }
+        $('#header').append(getHtmlWithData(HTMLwelcomeMsg, this.welcomeMessage));
     }
 };
 
@@ -218,7 +217,6 @@ var education = {
                     getHtmlWithData(HTMLonlineSchool, course.school);
             $('.education-entry:last').append(courseLink);
             $('.education-entry:last').append(getHtmlWithData(HTMLonlineDates, course.date));
-            $('.education-entry:last').append(getHtmlWithDataAndHref(HTMLonlineURL, course.url, course.url));
         }
     }
 };
@@ -293,8 +291,8 @@ var work = {
             var jobLink = getHtmlWithDataAndHref(HTMLworkEmployer, job.employer, job.url) +
                 getHtmlWithData(HTMLworkTitle, job.title);
             $('.work-entry:last').append(jobLink);
-            $('.work-entry:last').append(getHtmlWithData(HTMLworkDates, job.dates));
             $('.work-entry:last').append(getHtmlWithData(HTMLworkLocation, job.location));
+            $('.work-entry:last').append(getHtmlWithData(HTMLworkDates, job.dates));
             $('.work-entry:last').append(getHtmlWithData(HTMLworkDescription, job.description));
         }
     }
