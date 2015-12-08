@@ -128,6 +128,7 @@ Enemy.prototype.isColliding = function(player) {
 var Player = function(tileX, tileY) {
     tileX = typeof tileX !== 'undefined' ? tileX : PLAYER_INITIAL_TILE.x;
     tileY = typeof tileY !== 'undefined' ? tileY : PLAYER_INITIAL_TILE.y;
+    this.score = 0; // initialScore
     Character.call(this, 'images/char-boy.png', tileX, tileY, TILE_HEIGHT_OFFSET_PLAYER);
 };
 
@@ -140,6 +141,31 @@ Player.prototype.constructor = Player;
 Player.prototype.reset = function() {
     this.x = (PLAYER_INITIAL_TILE.x - 1) * TILE_WIDTH;
     this.y = ((PLAYER_INITIAL_TILE.y - 1) * TILE_HEIGHT) - this.heightOffset;
+};
+
+/**
+ * Finish the current player run.
+ *
+ * @param isWin indicate if the player won or lost this round
+ */
+Player.prototype.finish = function(isWin) {
+    this.reset();
+    this.score = isWin ? this.score + 1 : this.score - 1;
+    console.log('Score: ' + this.score);
+};
+
+/**
+ * Player wins!
+ */
+Player.prototype.win = function() {
+    this.finish(true);
+};
+
+/**
+ * Player loses!
+ */
+Player.prototype.lose = function() {
+    this.finish(false);
 };
 
 /**
@@ -156,6 +182,10 @@ Player.prototype.handleInput = function(input) {
         this.x = (newX >= 0 && newX <= ctx.canvas.width - TILE_WIDTH) ? newX : this.x;
         this.y = (newY >= -this.heightOffset && newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset) ? newY : this.y;
         console.log('Move: x='+this.x+', y='+this.y);
+        // Check to see if the player won
+        if (this.y <= 1) {
+            this.win();
+        }
     }
 };
 
