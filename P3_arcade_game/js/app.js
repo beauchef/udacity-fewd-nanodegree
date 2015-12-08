@@ -5,7 +5,7 @@
  * Udacity P3: Classic Arcade Game Clone
  *
  * TODO:
- * - reset player position once the top is reached
+ * - keep player on top for a while (and unmovable) so we know we won
  *
  */
 
@@ -48,7 +48,7 @@ var Character = function(imageUrl, tileX, tileY, heightOffset) {
     this.heightOffset = heightOffset;
     this.x = (tileX - 1) * TILE_WIDTH;
     this.y = ((tileY - 1) * TILE_HEIGHT) - heightOffset;
-}
+};
 
 /**
  * Update the character's position, required method for game
@@ -114,7 +114,7 @@ Enemy.prototype.isColliding = function(player) {
             (player.x < this.x + TILE_WIDTH - COLLISION_OFFSET) &&
             (player.y > this.y - TILE_HEIGHT + COLLISION_OFFSET) &&
             (player.y < this.y + TILE_HEIGHT - COLLISION_OFFSET));
-}
+};
 
 
 
