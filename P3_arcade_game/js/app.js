@@ -5,7 +5,9 @@
  * Udacity P3: Classic Arcade Game Clone
  *
  * TODO:
- * - keep player on top for a while (and unmovable) so we know we won
+ * - display score
+ * - add timer
+ * - allow player to pick character
  *
  */
 
@@ -17,12 +19,7 @@ var TILE_WIDTH = 101;
 var TILE_HEIGHT_OFFSET_ENEMY = 25;
 var TILE_HEIGHT_OFFSET_PLAYER = 10;
 var COLLISION_OFFSET = 25;
-
-var ENEMY_SPEED = {
-    'slow': 100,
-    'medium': 150,
-    'fast': 200
-};
+var PLAYER_WIN_MILLI_SECONDS_DELAY = 300;
 
 var PLAYER_INITIAL_TILE = { 'x': 3, 'y': 6 };
 
@@ -32,6 +29,13 @@ var PLAYER_MOVE = {
     'up':    { 'x': 0,            'y': -TILE_HEIGHT },
     'down':  { 'x': 0,            'y': +TILE_HEIGHT }
 };
+
+var ENEMY_SPEED = {
+    'slow': 100,
+    'medium': 150,
+    'fast': 200
+};
+
 
 
 /**
@@ -129,6 +133,7 @@ var Player = function(tileX, tileY) {
     tileX = typeof tileX !== 'undefined' ? tileX : PLAYER_INITIAL_TILE.x;
     tileY = typeof tileY !== 'undefined' ? tileY : PLAYER_INITIAL_TILE.y;
     this.score = 0; // initialScore
+    this.canMove = true;
     Character.call(this, 'images/char-boy.png', tileX, tileY, TILE_HEIGHT_OFFSET_PLAYER);
 };
 
@@ -145,20 +150,28 @@ Player.prototype.reset = function() {
 
 /**
  * Finish the current player run.
+ * This is called by both the win and the lose methods.
  *
  * @param isWin indicate if the player won or lost this round
  */
 Player.prototype.finish = function(isWin) {
     this.reset();
     this.score = isWin ? this.score + 1 : this.score - 1;
+    this.canMove = true;
     console.log('Score: ' + this.score);
 };
 
 /**
  * Player wins!
+ * We 'freeze' the player momentarily,
+ * so we can see that we reached the top and won.
  */
 Player.prototype.win = function() {
-    this.finish(true);
+    this.canMove = false;
+    var player = this;
+    setTimeout(function() {
+        player.finish(true);
+    }, PLAYER_WIN_MILLI_SECONDS_DELAY);
 };
 
 /**
@@ -176,13 +189,13 @@ Player.prototype.lose = function() {
  */
 Player.prototype.handleInput = function(input) {
     // First check that input is not undefined, and that it is a valid input in the PLAYER_MOVE matrix
-    if (input !== undefined && Object.prototype.hasOwnProperty.call(PLAYER_MOVE, input)) {
+    if (this.canMove && input !== undefined && Object.prototype.hasOwnProperty.call(PLAYER_MOVE, input)) {
         var newX = this.x + PLAYER_MOVE[input]['x'];
         var newY = this.y + PLAYER_MOVE[input]['y'];
         this.x = (newX >= 0 && newX <= ctx.canvas.width - TILE_WIDTH) ? newX : this.x;
         this.y = (newY >= -this.heightOffset && newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset) ? newY : this.y;
         console.log('Move: x='+this.x+', y='+this.y);
-        // Check to see if the player won
+        // Check to see if the player won by reaching the top
         if (this.y <= 1) {
             this.win();
         }
