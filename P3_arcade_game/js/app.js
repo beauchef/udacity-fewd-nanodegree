@@ -5,7 +5,6 @@
  * Udacity P3: Classic Arcade Game Clone
  *
  * TODO:
- * - display score
  * - add timer
  * - allow player to pick character
  *
@@ -151,12 +150,14 @@ Player.prototype.reset = function() {
 /**
  * Finish the current player run.
  * This is called by both the win and the lose methods.
+ * It resets the player position, and changes the score.
  *
  * @param isWin indicate if the player won or lost this round
  */
 Player.prototype.finish = function(isWin) {
     this.reset();
     this.score = isWin ? this.score + 1 : this.score - 1;
+    document.getElementById('score').innerHTML = this.score;
     this.canMove = true;
     console.log('Score: ' + this.score);
 };
@@ -182,6 +183,15 @@ Player.prototype.lose = function() {
 };
 
 /**
+ * Check to see if the player has reached the water
+ *
+ * @returns {boolean}
+ */
+Player.prototype.reachedWater = function() {
+    return (this.y <= 1);
+};
+
+/**
  * Allows the player to move when an arrow key is pressed.
  * This is specific to the player.
  *
@@ -190,13 +200,14 @@ Player.prototype.lose = function() {
 Player.prototype.handleInput = function(input) {
     // First check that input is not undefined, and that it is a valid input in the PLAYER_MOVE matrix
     if (this.canMove && input !== undefined && Object.prototype.hasOwnProperty.call(PLAYER_MOVE, input)) {
+        // calculate new coordinates
         var newX = this.x + PLAYER_MOVE[input]['x'];
         var newY = this.y + PLAYER_MOVE[input]['y'];
+        // assign new coordinates only if they are valid (player if not out of bounds)
         this.x = (newX >= 0 && newX <= ctx.canvas.width - TILE_WIDTH) ? newX : this.x;
         this.y = (newY >= -this.heightOffset && newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset) ? newY : this.y;
-        console.log('Move: x='+this.x+', y='+this.y);
         // Check to see if the player won by reaching the top
-        if (this.y <= 1) {
+        if (this.reachedWater()) {
             this.win();
         }
     }
