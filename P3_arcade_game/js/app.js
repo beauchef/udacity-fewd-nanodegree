@@ -17,6 +17,12 @@ var TILE_WIDTH = 101;
 var TILE_HEIGHT_OFFSET_ENEMY = 25;
 var TILE_HEIGHT_OFFSET_PLAYER = 10;
 
+var MOVE = {
+    'left': { 'x': -TILE_WIDTH, 'y': 0 },
+    'right': { 'x': +TILE_WIDTH, 'y': 0 },
+    'up': { 'x': 0, 'y': -TILE_HEIGHT },
+    'down': { 'x': 0, 'y': +TILE_HEIGHT }
+};
 
 
 /**
@@ -85,27 +91,10 @@ Player.prototype.constructor = Player;
  * @param input
  */
 Player.prototype.handleInput = function(input) {
-    if (input !== undefined) {
-        var newX = this.x;
-        var newY = this.y;
-        switch (input) {
-            case 'left':
-                newX = this.x - TILE_WIDTH;
-                break;
-            case 'right':
-                newX = this.x + TILE_WIDTH;
-                break;
-            case 'up':
-                newY = this.y - TILE_HEIGHT;
-                break;
-            case 'down':
-                newY = this.y + TILE_HEIGHT;
-                break;
-            default:
-                console.error('Invalid input: ' + input)
-                break;
-        }
-        console.log('newX='+newX+', newY='+newY);
+    // First check that input is not undefined, and that it is a valid input in the MOVE matrix
+    if (input !== undefined && Object.prototype.hasOwnProperty.call(MOVE, input)) {
+        var newX = this.x + MOVE[input]['x'];
+        var newY = this.y + MOVE[input]['y'];
         this.x = (newX >= 0 && newX <= ctx.canvas.width - TILE_WIDTH) ? newX : this.x;
         this.y = (newY >= -this.heightOffset && newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset) ? newY : this.y;
     }
