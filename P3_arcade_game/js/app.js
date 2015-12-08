@@ -5,19 +5,18 @@
  * Udacity P3: Classic Arcade Game Clone
  *
  * TODO:
- * - make enemies move to the other side of the screen without disappearing
- * - collision detection
  * - reset player position once the top is reached
- * 
+ *
  */
 
 
 
-var TILE_FULL_HEIGHT = 171; // Height of a tile, including the hidden portion.
-var TILE_HEIGHT = 83;
+var TILE_FULL_HEIGHT = 171; // Height of a tile, including the 'hidden' portion.
+var TILE_HEIGHT = 83; // Height of the visible portion of a tile.
 var TILE_WIDTH = 101;
 var TILE_HEIGHT_OFFSET_ENEMY = 25;
 var TILE_HEIGHT_OFFSET_PLAYER = 10;
+var COLLISION_OFFSET = 25;
 
 var ENEMY_SPEED = {
     'slow': 100,
@@ -95,11 +94,27 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function(dt) {
     if (dt !== undefined) {
         this.x = this.x + (this.speed * dt);
-        if (this.x > (ctx.canvas.width - TILE_WIDTH)) {
-            this.x = this.x - (ctx.canvas.width - TILE_WIDTH);
+        if (this.x > ctx.canvas.width) {
+            this.x = this.x - (ctx.canvas.width + TILE_WIDTH);
         }
     }
 };
+
+/**
+ * Check if the enemy instance is colliding with the player.
+ * An offset is used, so the player can get relatively close to an enemy.
+ * It gives a better 'feel' to the game.
+ *
+ * @param x
+ * @param y
+ * @returns {boolean}
+ */
+Enemy.prototype.isColliding = function(player) {
+    return ((player.x > this.x - TILE_WIDTH + COLLISION_OFFSET) &&
+            (player.x < this.x + TILE_WIDTH - COLLISION_OFFSET) &&
+            (player.y > this.y - TILE_HEIGHT + COLLISION_OFFSET) &&
+            (player.y < this.y + TILE_HEIGHT - COLLISION_OFFSET));
+}
 
 
 
@@ -120,6 +135,14 @@ Player.prototype = Object.create(Character.prototype);
 Player.prototype.constructor = Player;
 
 /**
+ * Reset player position.
+ */
+Player.prototype.reset = function() {
+    this.x = (PLAYER_INITIAL_TILE.x - 1) * TILE_WIDTH;
+    this.y = ((PLAYER_INITIAL_TILE.y - 1) * TILE_HEIGHT) - this.heightOffset;
+};
+
+/**
  * Allows the player to move when an arrow key is pressed.
  * This is specific to the player.
  *
@@ -132,6 +155,7 @@ Player.prototype.handleInput = function(input) {
         var newY = this.y + PLAYER_MOVE[input]['y'];
         this.x = (newX >= 0 && newX <= ctx.canvas.width - TILE_WIDTH) ? newX : this.x;
         this.y = (newY >= -this.heightOffset && newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset) ? newY : this.y;
+        console.log('Move: x='+this.x+', y='+this.y);
     }
 };
 
@@ -145,12 +169,12 @@ Player.prototype.handleInput = function(input) {
  * The top left tile is (1,1). The bottom right rile is (5,6).
  *
  */
+var player = new Player();
 var allEnemies = [
     new Enemy(1, 2, ENEMY_SPEED.medium),
     new Enemy(4, 3, ENEMY_SPEED.fast),
     new Enemy(2, 4, ENEMY_SPEED.slow)
 ];
-var player = new Player();
 
 
 
