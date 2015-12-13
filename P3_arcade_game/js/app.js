@@ -4,9 +4,6 @@
  *
  * Udacity P3: Classic Arcade Game Clone
  *
- * TODO:
- * - add timer
- * - allow player to pick character
  *
  */
 
@@ -20,6 +17,7 @@ var TILE_HEIGHT_OFFSET_PLAYER = 10;
 var COLLISION_OFFSET = 25;
 var PLAYER_WIN_MILLI_SECONDS_DELAY = 300;
 
+var PLAYER_INITIAL_TIME = 60; // in seconds
 var PLAYER_INITIAL_TILE = { 'x': 3, 'y': 6 };
 
 var PLAYER_MOVE = {
@@ -36,33 +34,87 @@ var ENEMY_SPEED = {
 };
 
 
+/**
+ * Game class.
+ * It keeps the information related to the game in progress.
+ * So that's the score, and the timer (for now).
+ * Every character will have a reference to a game object.
+ * If the game is over, a character does not need to move for example.
+ *
+ * @param time
+ * @constructor
+ */
+var Game = function(time) {
+    this.score = 0; // initial score
+    this.timer = time;
+    this.updateScore();
+};
+
+/**
+ * Update the game timer. This might not be the most precise way
+ * to handle this, but it will do.
+ *
+ * @param dt, a time delta between ticks
+ */
+Game.prototype.update = function(dt) {
+    if (dt !== undefined && !this.isOver()) {
+        this.timer = this.timer - dt;
+        document.getElementById('timer').innerHTML = Math.ceil(this.timer);
+    }
+};
+
+/**
+ * Checks if there is time left to the game or not.
+ *
+ * @returns {boolean}
+ */
+Game.prototype.isOver = function() {
+    return (this.timer < 0);
+};
+
+/**
+ * Update the game score inside the board, on top of the game.
+ */
+Game.prototype.updateScore = function() {
+    document.getElementById('score').innerHTML = this.score;
+};
+
+/**
+ * Player won a round by reaching the top of the screen.
+ * Increases the score, and updates the board.
+ */
+Game.prototype.winRound = function() {
+    this.score = this.score + 1;
+    this.updateScore();
+};
+
+/**
+ * Player was hit by an enemy.
+ * Decreases the score, and updates the board.
+ */
+Game.prototype.loseRound = function() {
+    this.score = this.score - 1;
+    this.updateScore();
+};
+
+
 
 /**
  * Character class
  *
+ * @param game object containing timer and score
  * @param imageUrl URL to the image representing this character
  * @param tileX tile position on X axis
  * @param tileY tile position on Y axis
  * @param heightOffset height offset in pixels for this character
  * @constructor
  */
-var Character = function(imageUrl, tileX, tileY, heightOffset) {
+var Character = function(game, imageUrl, tileX, tileY, heightOffset) {
+    this.game = game;
     this.sprite = imageUrl;
     this.heightOffset = heightOffset;
     this.x = (tileX - 1) * TILE_WIDTH;
     this.y = ((tileY - 1) * TILE_HEIGHT) - heightOffset;
-};
-
-/**
- * Update the character's position, required method for game
- * You should multiply any movement by the dt parameter
- * which will ensure the game runs at the same speed for
- * all computers.
- *
- * @param dt, a time delta between ticks
- */
-Character.prototype.update = function(dt) {
-    // do nothing
 };
 
 /**
@@ -76,26 +128,31 @@ Character.prototype.render = function() {
 /**
  * Enemies our player must avoid
  *
+ * @param game object containing timer and score
  * @param tileX tile position on X axis
  * @param tileY tile position on Y axis
+ * @param speed the enemy's speed
  * @constructor
  */
-var Enemy = function(tileX, tileY, speed) {
+var Enemy = function(game, tileX, tileY, speed) {
     this.speed = speed;
-    Character.call(this, 'images/enemy-bug.png', tileX, tileY, TILE_HEIGHT_OFFSET_ENEMY);
+    Character.call(this, game, 'images/enemy-bug.png', tileX, tileY, TILE_HEIGHT_OFFSET_ENEMY);
 };
 
 Enemy.prototype = Object.create(Character.prototype);
 Enemy.prototype.constructor = Enemy;
 
 /**
- * Update the enemy's position.
+ * Update the enemy's position. Required method for game.
  * Dependant on the enemy's specific speed.
+ * We multiply any movement by the dt parameter
+ * which will ensure the game runs at the same speed for
+ * all computers.
  *
  * @param dt, a time delta between ticks
  */
 Enemy.prototype.update = function(dt) {
-    if (dt !== undefined) {
+    if (dt !== undefined && !this.game.isOver()) {
         this.x = this.x + (this.speed * dt);
         if (this.x > ctx.canvas.width) {
             this.x = this.x - (ctx.canvas.width + TILE_WIDTH);
@@ -124,20 +181,40 @@ Enemy.prototype.isColliding = function(player) {
 /**
  * Player class, which subclasses the Character class
  *
+ * @param game object containing timer and score
  * @param tileX tile position on X axis
  * @param tileY tile position on Y axis
  * @constructor
  */
-var Player = function(tileX, tileY) {
+var Player = function(game, tileX, tileY) {
     tileX = typeof tileX !== 'undefined' ? tileX : PLAYER_INITIAL_TILE.x;
     tileY = typeof tileY !== 'undefined' ? tileY : PLAYER_INITIAL_TILE.y;
-    this.score = 0; // initialScore
-    this.canMove = true;
-    Character.call(this, 'images/char-boy.png', tileX, tileY, TILE_HEIGHT_OFFSET_PLAYER);
+    this.freeze = false; // this is to momentarely freeze the player when he wins
+    Character.call(this, game, 'images/char-boy.png', tileX, tileY, TILE_HEIGHT_OFFSET_PLAYER);
 };
 
 Player.prototype = Object.create(Character.prototype);
 Player.prototype.constructor = Player;
+
+/**
+ * Update the player.
+ *
+ * @param dt, a time delta between ticks
+ */
+Player.prototype.update = function(dt) {
+    // do nothing for now
+};
+
+/**
+ * Checks to see if the player can move or not.
+ * A player can move if the 'freeze' flag is not active,
+ * and if the game is not over.
+ *
+ * @returns {boolean}
+ */
+Player.prototype.canMove = function() {
+    return (!this.freeze && !this.game.isOver());
+};
 
 /**
  * Reset player position.
@@ -156,19 +233,22 @@ Player.prototype.reset = function() {
  */
 Player.prototype.finish = function(isWin) {
     this.reset();
-    this.score = isWin ? this.score + 1 : this.score - 1;
-    document.getElementById('score').innerHTML = this.score;
-    this.canMove = true;
-    console.log('Score: ' + this.score);
+    if (isWin) {
+        this.game.winRound();
+    } else {
+        this.game.loseRound();
+    }
+    this.freeze = false;
+    console.log('Score: ' + this.game.score);
 };
 
 /**
  * Player wins!
- * We 'freeze' the player momentarily,
+ * We 'freeze' the player momentarely,
  * so we can see that we reached the top and won.
  */
 Player.prototype.win = function() {
-    this.canMove = false;
+    this.freeze = true;
     var player = this;
     setTimeout(function() {
         player.finish(true);
@@ -199,7 +279,7 @@ Player.prototype.reachedWater = function() {
  */
 Player.prototype.handleInput = function(input) {
     // First check that input is not undefined, and that it is a valid input in the PLAYER_MOVE matrix
-    if (this.canMove && input !== undefined && Object.prototype.hasOwnProperty.call(PLAYER_MOVE, input)) {
+    if (this.canMove() && input !== undefined && Object.prototype.hasOwnProperty.call(PLAYER_MOVE, input)) {
         // calculate new coordinates
         var newX = this.x + PLAYER_MOVE[input]['x'];
         var newY = this.y + PLAYER_MOVE[input]['y'];
@@ -220,14 +300,15 @@ Player.prototype.handleInput = function(input) {
  * Place all enemy objects in an array called allEnemies
  * Place the player object in a variable called player
  * Positions here are based on tiles, not pixels.
- * The top left tile is (1,1). The bottom right rile is (5,6).
+ * The top left tile is (1,1). The bottom right tile is (5,6).
  *
  */
-var player = new Player();
+var game = new Game(PLAYER_INITIAL_TIME);
+var player = new Player(game);
 var allEnemies = [
-    new Enemy(1, 2, ENEMY_SPEED.medium),
-    new Enemy(4, 3, ENEMY_SPEED.fast),
-    new Enemy(2, 4, ENEMY_SPEED.slow)
+    new Enemy(game, 1, 2, ENEMY_SPEED.medium),
+    new Enemy(game, 4, 3, ENEMY_SPEED.fast),
+    new Enemy(game, 2, 4, ENEMY_SPEED.slow)
 ];
 
 
@@ -245,4 +326,17 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+/**
+ * This simply resets the game
+ */
+document.getElementById("reset-game").addEventListener('click', function() {
+    game = new Game(PLAYER_INITIAL_TIME);
+    player = new Player(game);
+    allEnemies = [
+        new Enemy(game, 1, 2, ENEMY_SPEED.medium),
+        new Enemy(game, 4, 3, ENEMY_SPEED.fast),
+        new Enemy(game, 2, 4, ENEMY_SPEED.slow)
+    ];
 });
