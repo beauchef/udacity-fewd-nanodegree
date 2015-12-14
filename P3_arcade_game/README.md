@@ -48,4 +48,4 @@ A few modifications could be made to improve the game.
 
 # License
 
-Well, I did not write most of the code. So that's all I can say for now. :)
+Well, I did not write most of the code (Most of it comes from Udacity). So I would avoid using any of it.
