@@ -331,7 +331,7 @@ document.addEventListener('keyup', function(e) {
 /**
  * This simply resets the game
  */
-document.getElementById("reset-game").addEventListener('click', function() {
+document.getElementById('reset-game').addEventListener('click', function() {
     game = new Game(PLAYER_INITIAL_TIME);
     player = new Player(game);
     allEnemies = [
