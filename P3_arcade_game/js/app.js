@@ -41,7 +41,7 @@ var ENEMY_SPEED = {
  * Every character will have a reference to a game object.
  * If the game is over, a character does not need to move for example.
  *
- * @param time
+ * @param time length of a game in seconds
  * @constructor
  */
 var Game = function(time) {
@@ -165,8 +165,7 @@ Enemy.prototype.update = function(dt) {
  * An offset is used, so the player can get relatively close to an enemy.
  * It gives a better 'feel' to the game.
  *
- * @param x
- * @param y
+ * @param player to check coordinates
  * @returns {boolean}
  */
 Enemy.prototype.isColliding = function(player) {
@@ -232,6 +231,7 @@ Player.prototype.reset = function() {
  * @param isWin indicate if the player won or lost this round
  */
 Player.prototype.finish = function(isWin) {
+    isWin = typeof isWin !== 'undefined' ? isWin : true;
     this.reset();
     if (isWin) {
         this.game.winRound();
@@ -246,17 +246,37 @@ Player.prototype.finish = function(isWin) {
  * Player wins!
  * We 'freeze' the player momentarely,
  * so we can see that we reached the top and won.
+ *
+ * Here is how I did the 'freeze' bit using setTimeout at first:
+ *
+ *     var player = this;
+ *     setTimeout(function() {
+ *         player.finish(true);
+ *     }, PLAYER_WIN_MILLI_SECONDS_DELAY);
+ *
+ * But I got the following comment from the Udacity reviewer:
+ *
+ * "Since you are calling the player instance, inside the Player
+ * prototype itself, you are violating OOP encapsulation principles.
+ * You should use the keyword this instead: this.finish(true);"
+ *
+ * But I cannot do this because, as explained in the JavaScript
+ * reference (Mozilla web site), "By default within window.setTimeout(),
+ * the this keyword will be set to the window (or global) object."
+ *
+ * It also states that " you may explicitly bind this to the callback
+ * function, in order to maintain the instance."
+ *
+ * So this is exactly what I did here.
+ *
  */
 Player.prototype.win = function() {
     this.freeze = true;
-    var player = this;
-    setTimeout(function() {
-        player.finish(true);
-    }, PLAYER_WIN_MILLI_SECONDS_DELAY);
+    setTimeout(this.finish.bind(this), PLAYER_WIN_MILLI_SECONDS_DELAY);
 };
 
 /**
- * Player loses!
+ * Player loses the current round.
  */
 Player.prototype.lose = function() {
     this.finish(false);
@@ -280,12 +300,8 @@ Player.prototype.reachedWater = function() {
 Player.prototype.handleInput = function(input) {
     // First check that input is not undefined, and that it is a valid input in the PLAYER_MOVE matrix
     if (this.canMove() && input !== undefined && Object.prototype.hasOwnProperty.call(PLAYER_MOVE, input)) {
-        // calculate new coordinates
-        var newX = this.x + PLAYER_MOVE[input]['x'];
-        var newY = this.y + PLAYER_MOVE[input]['y'];
-        // assign new coordinates only if they are valid (player if not out of bounds)
-        this.x = (newX >= 0 && newX <= ctx.canvas.width - TILE_WIDTH) ? newX : this.x;
-        this.y = (newY >= -this.heightOffset && newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset) ? newY : this.y;
+        // calculate new coordinates, and try to assign them
+        this.assignNewCoordinates(this.x + PLAYER_MOVE[input].x, this.y + PLAYER_MOVE[input].y);
         // Check to see if the player won by reaching the top
         if (this.reachedWater()) {
             this.win();
@@ -293,25 +309,44 @@ Player.prototype.handleInput = function(input) {
     }
 };
 
+/**
+ * Assign new coordinates ONLY if they are valid (player if not out of bounds).
+ * Note that because of the way the PLAYER_MOVE matrix is built, at most one
+ * of X and Y will be modified.
+ *
+ * @param newX new X coordinate
+ * @param newY new Y coordinate
+ */
+Player.prototype.assignNewCoordinates = function(newX, newY) {
+    if ((newX >= 0) && (newX <= ctx.canvas.width - TILE_WIDTH)) {
+        this.x = newX;
+    }
+    if ((newY >= -this.heightOffset) && (newY <= ctx.canvas.height - TILE_FULL_HEIGHT - this.heightOffset)) {
+        this.y = newY;
+    }
+};
+
 
 
 /**
- * Now instantiate your objects.
+ * Initialize game.
+ *
+ * Instantiate all required objects.
  * Place all enemy objects in an array called allEnemies
  * Place the player object in a variable called player
  * Positions here are based on tiles, not pixels.
  * The top left tile is (1,1). The bottom right tile is (5,6).
  *
  */
-var game = new Game(PLAYER_INITIAL_TIME);
-var player = new Player(game);
-var allEnemies = [
-    new Enemy(game, 1, 2, ENEMY_SPEED.medium),
-    new Enemy(game, 4, 3, ENEMY_SPEED.fast),
-    new Enemy(game, 2, 4, ENEMY_SPEED.slow)
-];
-
-
+function initializeGame() {
+    game = new Game(PLAYER_INITIAL_TIME);
+    player = new Player(game);
+    allEnemies = [
+        new Enemy(game, 1, 2, ENEMY_SPEED.medium),
+        new Enemy(game, 4, 3, ENEMY_SPEED.fast),
+        new Enemy(game, 2, 4, ENEMY_SPEED.slow)
+    ];
+};
 
 /**
  * This listens for key presses and sends the keys to your
@@ -329,14 +364,12 @@ document.addEventListener('keyup', function(e) {
 });
 
 /**
- * This simply resets the game
+ * This simply resets the game when the reset button is clicked.
  */
-document.getElementById('reset-game').addEventListener('click', function() {
-    game = new Game(PLAYER_INITIAL_TIME);
-    player = new Player(game);
-    allEnemies = [
-        new Enemy(game, 1, 2, ENEMY_SPEED.medium),
-        new Enemy(game, 4, 3, ENEMY_SPEED.fast),
-        new Enemy(game, 2, 4, ENEMY_SPEED.slow)
-    ];
-});
+document.getElementById('reset-game').addEventListener('click', initializeGame);
+
+/**
+ * Do actual game initialization here.
+ */
+var game, player, allEnemies;
+initializeGame();
