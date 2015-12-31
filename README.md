@@ -53,6 +53,45 @@ Udacity Front-end Web Developer Nanodegree
 * [Unicode character table](http://unicode-table.com/en/)
 * [Google Fonts](https://www.google.com/fonts)
 
+### Web Performance Optimization
+
+* [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)
+* [Google Web Fundamentals](https://developers.google.com/web/fundamentals/)
+* [The Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/)
+* [Responsive web design basics](https://developers.google.com/web/fundamentals/design-and-ui/responsive/fundamentals/)
+* [What is the Document Object Model?](http://www.w3.org/TR/DOM-Level-2-Core/introduction.html)
+* [Constructing the DOM](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model#document-object-model-dom)
+* [Constructing the CSSOM](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model#css-object-model-cssom)
+* [Constructing the Render Tree, running Layout and Paint](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction)
+* [Web performance](https://developers.google.com/web/fundamentals/performance/)
+* [WebPageTest](http://www.webpagetest.org/)
+* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html)
+* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html)
+* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html)
+* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html)
+* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html)
+* [The fewer the downloads, the better](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html)
+* [Reduce the size of text](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html)
+* [Optimize images](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html)
+* [HTTP caching](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html)
+* [High Performance Browser Networking](http://hbpn.co/)
+
+### Browser Rendering Optimization
+
+* [Rendering Performance](https://developers.google.com/web/fundamentals/performance/rendering/)
+* [Using and reading the timeline](https://developer.chrome.com/devtools/docs/timeline#rendering-event-properties)
+* [Layout boundaries](http://wilsonpage.co.uk/introducing-layout-boundaries/)
+* [CSS triggers](http://www.csstriggers.com/)
+* [Making a silky smooth web](https://speakerdeck.com/paullewis/making-a-silky-smooth-web)
+* [requestAnimationFrame polyfill for IE9](https://gist.github.com/paulirish/1579671)
+* [Web workers basics](http://www.html5rocks.com/en/tutorials/workers/basics/)
+* [Web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
+* [Writing Fast, Memory-Efficient JavaScript](http://www.smashingmagazine.com/2012/11/writing-fast-memory-efficient-javascript/)
+* [Memory management](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management)
+* [High-Performance, Garbage-Collector-Friendly Code](http://buildnewgames.com/garbage-collector-friendly-code/)
+* [How (not) to Trigger a Layout in Webkit](http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html)
+
+
 ### Tools
 
 * [Sublime Text](http://www.sublimetext.com/)
@@ -60,6 +99,7 @@ Udacity Front-end Web Developer Nanodegree
 * [CodePen](http://codepen.io/)
 * [Chrome Device Emulator](https://developer.chrome.com/devtools/docs/device-mode)
 * [BrowserStack](https://www.browserstack.com/)
+* [ngrok](https://ngrok.com/)
 * [Google Chrome Canary](https://www.google.com/intl/en/chrome/browser/canary.html)
 * [Chromium Dev channel](http://www.chromium.org/getting-involved/dev-channel)
 * [iOS WebKit Debug Proxy](https://github.com/google/ios-webkit-debug-proxy)
@@ -69,7 +109,7 @@ Udacity Front-end Web Developer Nanodegree
 ### Important information
 
 * [Remote Debugging on Android with Chrome](https://developer.chrome.com/devtools/docs/remote-debugging)
-* [Difference between display:non and visibility:hidden](http://webdesign.about.com/od/css/f/blfaqhidden.htm)
+* [Difference between display:none and visibility:hidden](http://webdesign.about.com/od/css/f/blfaqhidden.htm)
 
 ### Guide to layout semantic tags
 
