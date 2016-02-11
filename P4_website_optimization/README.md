@@ -4,9 +4,32 @@ Your challenge, if you wish to accept it (and we sure hope you will), is to opti
 
 To get started, check out the repository, inspect the code,
 
+### Project organization
+
+There are 3 folders in this project:
+* ``src`` contains the original unmodified code
+* ``test`` is essentially the same as the previous, but with changes automatically proposed by [PageSpeed Insight](https://developers.google.com/speed/pagespeed/insights/)
+* ``dist`` contains the optimized version of the site, as produced by Grunt
+
+### How to generate the distribution
+
+TODO
+* grunt task
+
+### How to test the result
+
+TODO
+* repeat what's explained in the following sections
+
+
+
+The following information is from Udacity. Eventually, it will be modified or even removed.
+
+
+
 ### Getting started
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+#### Part 1: Optimize PageSpeed Insights score for index.html
 
 Some useful tips to help you get started:
 
@@ -30,7 +53,7 @@ Some useful tips to help you get started:
 
 Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
-####Part 2: Optimize Frames per Second in pizza.html
+#### Part 2: Optimize Frames per Second in pizza.html
 
 To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
 
