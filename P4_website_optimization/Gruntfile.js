@@ -32,6 +32,10 @@
 
 
   And the web page will be available for testing at:  https://developers.google.com/speed/pagespeed/insights/
+  The site will also be automatically tested by the build using PageSpeed Insights.
+
+ Note:  I achieved some results of 95 on mobile and 92 on desktop using PageSpeed Insights directly on Google site.
+        Surprisingly, I was able to have 98 on mobile and 98 (sometimes even 100!?) on desktop inside the build.
 
  */
 
@@ -302,7 +306,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-uncss');
 
     /**
-     * Task to run PageSpeed Insight using ngrok.
+     * Task to run PageSpeed Insights using ngrok.
      * Note: it is very important to use ngrok 0.1.94+, but not 0.2+. (latest version doesn't work)
      * Source: https://github.com/jrcryer/grunt-pagespeed-ngrok-sample
      */
