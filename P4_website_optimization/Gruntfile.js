@@ -35,6 +35,10 @@
 
  */
 
+'use strict'
+
+var ngrok = require('ngrok');
+
 module.exports = function(grunt) {
 
     grunt.initConfig({
@@ -261,6 +265,26 @@ module.exports = function(grunt) {
                     {expand: true, flatten: true, src: ['build/index.html'], dest: 'dist/'}
                 ]
             }
+        },
+
+        pagespeed: {
+            options: {
+                nokey: true,
+                locale: "en_CA",
+                threshold: 90
+            },
+            mobile: {
+                options: {
+                    paths: ["/dist/index.html"],
+                    strategy: "mobile"
+                }
+            },
+            desktop: {
+                options: {
+                    paths: ["/dist/index.html"],
+                    strategy: "desktop"
+                }
+            }
         }
 
     });
@@ -273,12 +297,33 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-pagespeed');
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-uncss');
+
+    /**
+     * Task to run PageSpeed Insight using ngrok.
+     * Note: it is very important to use ngrok 0.1.94+, but not 0.2+. (latest version doesn't work)
+     * Source: https://github.com/jrcryer/grunt-pagespeed-ngrok-sample
+     */
+    grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
+        var done = this.async();
+        var port = 8888;
+        ngrok.connect(port, function(err, url) {
+            if (err !== null) {
+                grunt.fail.fatal(err);
+                return done();
+            }
+            grunt.config.set('pagespeed.options.url', url);
+            grunt.task.run('pagespeed:mobile');
+            grunt.task.run('pagespeed:desktop');
+            done();
+        });
+    });
 
     grunt.registerTask('cleandist', ['clean', 'mkdir', 'copy:diststruct']);
     grunt.registerTask('copyfiles', ['copy:html', 'copy:css', 'copy:images', 'copy:javascript']);
     grunt.registerTask('minimize', ['cssmin', 'clean:build', 'htmlmin', 'replace', 'clean:build']);
-    grunt.registerTask('default', ['cleandist', 'uncss', 'minimize', 'copyfiles']); // 'responsive_images'
+    grunt.registerTask('default', ['cleandist', 'uncss', 'minimize', 'copyfiles', 'psi-ngrok']); // 'responsive_images'
 
 };
