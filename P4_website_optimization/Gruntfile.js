@@ -1,20 +1,60 @@
-/*
- After you have changed the settings at "Your code goes here",
- run this with one of these options:
- "grunt" alone creates a new, completed images directory
- "grunt clean" removes the images directory
- "grunt responsive_images" re-processes images without removing the old ones
+/**
+
+ Website optimization:
+ --------------------
+
+ The original code is inside the 'src' folder. It was modified slightly to make a few adjustments.
+ Like the use of 'async' on some scripts, and the loading of CSS delayed using JavaScript.
+ The 'build' folder is a temporary folder for processing some items.
+ The 'dist' folder is final distribution of the we site, and this is where the web server should be launched.
+
+ Running grunt:
+
+ "grunt"             alone will create the distribution of the site in the 'dist' folder
+ "grunt cleandist"   removes the content from the 'dist' folder
+ "grunt minimize"    minimizes all the content it can (HTML, CSS, etc.)
+ "grunt copyfiles"   copies certain files to the 'dist' folder in order to finish
+                     the packaging of the final distribution of the site
+
+
+ Then you can use Python's simple HTTP server:
+
+   $ python -m SimpleHTTPServer 8080
+
+ Or with Python 3:
+
+   $ python -m http.server 8080
+
+
+  Once the server is running, simply launch ngrok:
+
+    $ ngrok http 8080
+
+
+  And the web page will be available for testing at:  https://developers.google.com/speed/pagespeed/insights/
+
  */
 
 module.exports = function(grunt) {
 
     grunt.initConfig({
+
+        /**
+         * I tried using the responsive images plug-in, but I was never able
+         * to achieve the same level of compression as Google was able to obtain.
+         * So I left the following for reference, but it is not used.
+         */
         responsive_images: {
             dev: {
                 options: {
                     engine: 'im',
                     sizes: [
                         {
+                            name: 'icon',
+                            width: 100,
+                            suffix: "",
+                            quality: 30
+                        }, {
                             name: 'small',
                             width: 400,
                             suffix: "",
@@ -29,42 +69,60 @@ module.exports = function(grunt) {
                             width: 1600,
                             suffix: "",
                             quality: 30
+                        }, {
+                            name: 'compressed',
+                            width: '100%',
+                            suffix: "",
+                            quality: 30
                         }
                     ]
                 },
 
-                /*
-                 You don't need to change this part if you don't change
-                 the directory structure.
-                 */
-                files: [{
-                    expand: true,
-                    src: ['*.{gif,jpg,png}'],
-                    cwd: 'images_src/',
-                    dest: 'images/'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/img/',
+                        src: ['*.{gif,jpg,png}'],
+                        dest: 'dist/img/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/views/images/',
+                        src: ['*.{gif,jpg,png}'],
+                        dest: 'dist/views/images/'
+                    }
+                ]
             }
         },
 
-        /* Clear out the 'dist' folder */
+        /**
+         * Clear out the 'dist' folder
+         */
         clean: {
-            dev: {
-                src: ['dist'],
+            default: {
+                src: ['dist']
             },
+            build: {
+                src: ['build/*', '!build/.gitkeep']
+            }
         },
 
-        /* Generate the 'dist' folder */
+        /**
+         * Generate the 'dist' folder
+         */
         mkdir: {
-            dev: {
+            default: {
                 options: {
                     create: ['dist']
-                },
-            },
+                }
+            }
         },
 
-        /* Copy the directory structure from the 'src' folder */
+        /**
+         * Copy the directory structure from the 'src' folder
+         */
         copy: {
-            structure: {
+            diststruct: {
                 files: [
                     {
                         expand: true,
@@ -75,9 +133,69 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            html: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/',
+                        src: ['p*.html'],
+                        dest: 'dist/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/views/',
+                        src: ['*.html'],
+                        dest: 'dist/views/'
+                    }
+                ]
+            },
+            css: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/views/css/',
+                        src: ['*.css'],
+                        dest: 'dist/views/css/'
+                    }
+                ]
+            },
+            images: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/img/',
+                        src: ['*.png', '*.jpg'],
+                        dest: 'dist/img/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/views/images/',
+                        src: ['*.png', '*.jpg'],
+                        dest: 'dist/views/images/'
+                    }
+                ]
+            },
+            javascript: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        src: ['*.js'],
+                        dest: 'dist/js/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/views/js/',
+                        src: ['*.js'],
+                        dest: 'dist/views/js/'
+                    }
+                ]
+            }
         },
 
-        /* Minify HTML files */
+        /**
+         * Minify HTML files
+         */
         htmlmin: {
             dev: {
                 options: {
@@ -85,12 +203,14 @@ module.exports = function(grunt) {
                     collapseWhitespace: true
                 },
                 files: {
-                    'dist/index.html': 'src/index.html'
+                    'build/index.html': 'src/index.html'
                 }
             }
         },
 
-        /* Get rid of unused CSS */
+        /**
+         * Get rid of unused CSS
+         */
         uncss: {
             dev: {
                 files: {
@@ -99,25 +219,66 @@ module.exports = function(grunt) {
             }
         },
 
-        /* Minify CSS */
+        /**
+         * Minify CSS
+         */
         cssmin: {
             target: {
                 files: {
                     'dist/css/style.min.css': ['dist/css/style.css']
                 }
             }
+        },
+
+        /**
+         * Replace a few references to use new compressed content
+         */
+        replace: {
+            default: {
+                options: {
+                    patterns: [
+                        {
+                            match: /style.css/g,
+                            replacement: function () {
+                                return 'style.min.css';
+                            }
+                        },
+                        {
+                            match: /profilepic.jpg/g,
+                            replacement: function () {
+                                return 'profilepic-compressed.jpg';
+                            }
+                        },
+                        {
+                            match: /pizzeria.jpg/g,
+                            replacement: function () {
+                                return 'pizzeria-icon.jpg';
+                            }
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['build/index.html'], dest: 'dist/'}
+                ]
+            }
         }
 
     });
 
-    grunt.loadNpmTasks('grunt-responsive-images');
+
+
+    //grunt.loadNpmTasks('grunt-responsive-images'); // responsive images is unused
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-uncss');
 
-    grunt.registerTask('default', ['clean', 'mkdir', 'copy:structure', 'htmlmin', 'uncss', 'cssmin']);
+    grunt.registerTask('cleandist', ['clean', 'mkdir', 'copy:diststruct']);
+    grunt.registerTask('copyfiles', ['copy:html', 'copy:css', 'copy:images', 'copy:javascript']);
+    grunt.registerTask('minimize', ['cssmin', 'clean:build', 'htmlmin', 'replace', 'clean:build']);
+    grunt.registerTask('default', ['cleandist', 'uncss', 'minimize', 'copyfiles']); // 'responsive_images'
 
 };
