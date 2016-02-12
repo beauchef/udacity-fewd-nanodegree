@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 
         /* Copy the directory structure from the 'src' folder */
         copy: {
-            dev: {
+            structure: {
                 files: [
                     {
                         expand: true,
@@ -88,15 +88,36 @@ module.exports = function(grunt) {
                     'dist/index.html': 'src/index.html'
                 }
             }
+        },
+
+        /* Get rid of unused CSS */
+        uncss: {
+            dev: {
+                files: {
+                    'dist/css/style.css': ['src/*.html']
+                }
+            }
+        },
+
+        /* Minify CSS */
+        cssmin: {
+            target: {
+                files: {
+                    'dist/css/style.min.css': ['dist/css/style.css']
+                }
+            }
         }
+
     });
 
     grunt.loadNpmTasks('grunt-responsive-images');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-uncss');
 
-    grunt.registerTask('default', ['clean', 'mkdir', 'copy', 'htmlmin']);
+    grunt.registerTask('default', ['clean', 'mkdir', 'copy:structure', 'htmlmin', 'uncss', 'cssmin']);
 
 };

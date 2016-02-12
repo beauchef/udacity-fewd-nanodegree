@@ -8,9 +8,6 @@
     <title>Cameron Pittman: Portfolio</title>
     <meta http-equiv="Cache-control" content="public" max-age="3600">
 
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/print.css" rel="stylesheet" media="print">
-
     <script>
       (function(w,g){w['GoogleAnalyticsObject']=g;
       w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
@@ -59,6 +56,19 @@
           </li>
         </ul>
     </div>
+
+    <script>
+      // source: https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery
+      var cb = function() {
+        var l = document.createElement('link'); l.rel = 'stylesheet';
+        l.href = 'css/style.min.css';
+        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+              webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(cb);
+      else window.addEventListener('load', cb);
+    </script>
 
     <footer>
       <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
