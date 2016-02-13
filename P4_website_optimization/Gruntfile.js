@@ -299,7 +299,7 @@ module.exports = function(grunt) {
                         {
                             match: /pizzeria.jpg/g,
                             replacement: function () {
-                                return 'pizzeria-icon.jpg';
+                                return 'pizzeria-compressed.jpg';
                             }
                         },
                         {
