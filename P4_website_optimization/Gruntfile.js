@@ -195,17 +195,6 @@ module.exports = function(grunt) {
             }
         },
 
-        ///**
-        // * Get rid of unused CSS
-        // */
-        //uncss: {
-        //    dev: {
-        //        files: {
-        //            'dist/css/style.css': ['src/*.html']
-        //        }
-        //    }
-        //},
-
         /**
          * Minify CSS
          */
@@ -377,7 +366,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-pagespeed');
     grunt.loadNpmTasks('grunt-replace');
-    grunt.loadNpmTasks('grunt-uncss');
 
     /**
      * Task to run PageSpeed Insights using ngrok.
@@ -402,6 +390,6 @@ module.exports = function(grunt) {
     grunt.registerTask('cleandist', ['clean', 'mkdir', 'copy:diststruct']);
     grunt.registerTask('minimize', ['cssmin', 'uglify', 'clean:build', 'htmlmin', 'replace', 'clean:build']);
     grunt.registerTask('copyfiles', ['copy:html', 'copy:css', 'copy:images', 'copy:javascript']);
-    grunt.registerTask('default', ['cleandist', 'minimize', 'copy:images', 'psi-ngrok']); // 'uncss', 'responsive_images'
+    grunt.registerTask('default', ['cleandist', 'minimize', 'copy:images', 'psi-ngrok']); // 'responsive_images'
 
 };
