@@ -148,12 +148,6 @@ module.exports = function(grunt) {
                         cwd: 'src/',
                         src: ['p*.html'],
                         dest: 'dist/'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'src/views/',
-                        src: ['*.html'],
-                        dest: 'dist/views/'
                     }
                 ]
             },
@@ -201,6 +195,33 @@ module.exports = function(grunt) {
             }
         },
 
+        ///**
+        // * Get rid of unused CSS
+        // */
+        //uncss: {
+        //    dev: {
+        //        files: {
+        //            'dist/css/style.css': ['src/*.html']
+        //        }
+        //    }
+        //},
+
+        /**
+         * Minify CSS
+         */
+        cssmin: {
+            target: {
+                files: [
+                    {
+                        'dist/css/style.min.css': ['src/css/style.css']
+                    },
+                    {
+                        'dist/views/css/style.min.css': ['src/views/css/style.css']
+                    }
+                ]
+            }
+        },
+
         /**
          * Minify HTML files
          */
@@ -210,31 +231,42 @@ module.exports = function(grunt) {
                     removeComments: true,
                     collapseWhitespace: true
                 },
-                files: {
-                    'build/index.html': 'src/index.html'
-                }
+                files: [
+                    {
+                        'build/index.html': 'src/index.html'
+                    },
+                    {
+                        'build/project-2048.html': 'src/project-2048.html'
+                    },
+                    {
+                        'build/project-mobile.html': 'src/project-mobile.html'
+                    },
+                    {
+                        'build/project-webperf.html': 'src/project-webperf.html'
+                    },
+                    {
+                        'build/pizza.html': 'src/views/pizza.html'
+                    }
+                ]
             }
         },
 
         /**
-         * Get rid of unused CSS
+         * Minify JavaScript
          */
-        uncss: {
-            dev: {
-                files: {
-                    'dist/css/style.css': ['src/*.html']
-                }
-            }
-        },
-
-        /**
-         * Minify CSS
-         */
-        cssmin: {
-            target: {
-                files: {
-                    'dist/css/style.min.css': ['dist/css/style.css']
-                }
+        uglify: {
+            options: {
+                mangle: true
+            },
+            default: {
+                files: [
+                    {
+                        'dist/js/perfmatters.min.js': ['src/js/perfmatters.js']
+                    },
+                    {
+                        'dist/views/js/main.min.js': ['src/views/js/main.js']
+                    }
+                ]
             }
         },
 
@@ -258,15 +290,56 @@ module.exports = function(grunt) {
                             }
                         },
                         {
+                            match: /mobilewebdev.jpg/g,
+                            replacement: function () {
+                                return 'mobilewebdev-compressed.jpg';
+                            }
+                        },
+                        {
+                            match: /cam_be_like.jpg/g,
+                            replacement: function () {
+                                return 'cam_be_like-compressed.jpg';
+                            }
+                        },
+                        {
+                            match: /2048.png/g,
+                            replacement: function () {
+                                return '2048-compressed.png';
+                            }
+                        },
+                        {
                             match: /pizzeria.jpg/g,
                             replacement: function () {
                                 return 'pizzeria-icon.jpg';
+                            }
+                        },
+                        {
+                            match: /perfmatters.js/g,
+                            replacement: function () {
+                                return 'perfmatters.min.js';
+                            }
+                        },
+                        {
+                            match: /main.js/g,
+                            replacement: function () {
+                                return 'main.min.js';
                             }
                         }
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['build/index.html'], dest: 'dist/'}
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['build/index.html', 'build/pr*.html'],
+                        dest: 'dist/'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['build/pizza.html'],
+                        dest: 'dist/views/'
+                    }
                 ]
             }
         },
@@ -300,6 +373,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-pagespeed');
     grunt.loadNpmTasks('grunt-replace');
@@ -307,7 +381,7 @@ module.exports = function(grunt) {
 
     /**
      * Task to run PageSpeed Insights using ngrok.
-     * Note: it is very important to use ngrok 0.1.94+, but not 0.2+. (latest version doesn't work)
+     * Note: it is very important to use ngrok 0.1.94+, not 0.2+. (latest version doesn't work)
      * Source: https://github.com/jrcryer/grunt-pagespeed-ngrok-sample
      */
     grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
@@ -326,8 +400,8 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('cleandist', ['clean', 'mkdir', 'copy:diststruct']);
+    grunt.registerTask('minimize', ['cssmin', 'uglify', 'clean:build', 'htmlmin', 'replace', 'clean:build']);
     grunt.registerTask('copyfiles', ['copy:html', 'copy:css', 'copy:images', 'copy:javascript']);
-    grunt.registerTask('minimize', ['cssmin', 'clean:build', 'htmlmin', 'replace', 'clean:build']);
-    grunt.registerTask('default', ['cleandist', 'uncss', 'minimize', 'copyfiles', 'psi-ngrok']); // 'responsive_images'
+    grunt.registerTask('default', ['cleandist', 'minimize', 'copy:images', 'psi-ngrok']); // 'uncss', 'responsive_images'
 
 };
