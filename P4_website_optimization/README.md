@@ -67,4 +67,12 @@ Now when scrolling on the Pizza page, Chrome should be able to handle 60 FPS.
 
 ## Possible improvements
 
-TODO
+My Grunt process is long and not very elegant, I know. The way I am using the ``grunt-replace`` plug-in seems odd.
+Here are some things I should I could have done:
+
+* Use Bower
+* Integrate ``grunt-uncss`` in the build process
+* Integrate ``grunt-responsive-images`` in the build process
+* Clean-up the Grunt file
+
+That will be for another day!
