@@ -298,7 +298,12 @@ module.exports = function(grunt) {
                         },
                         {
                             match: /pizzeria.jpg/g,
-                            replacement: function () {
+                            replacement: function (token, filesize, content, filename) {
+                                // This is not very elegant, but I wan't to be able to replace
+                                // the 'pizzera.jpg' filename differently for different pages. :(
+                                if (filename==='build/index.html') {
+                                    return 'pizzeria-icon.jpg';
+                                }
                                 return 'pizzeria-compressed.jpg';
                             }
                         },
