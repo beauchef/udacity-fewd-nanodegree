@@ -533,6 +533,7 @@ function logAverageFrame(times) {
 // Iterator for number of times the pizzas in the background have scrolled.
 // Used by updatePositions() to decide when to log the average time per frame
 var frame = 0;
+var isUpdatingPositions = false;
 
 
 
@@ -557,17 +558,19 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
+  isUpdatingPositions = false;
 }
 
 // Global references to DOM objects
 var pizzaMovers;
 var pizzaContainers;
 
-
-
 // runs updatePositions on scroll
 window.addEventListener('scroll', function() {
-  window.requestAnimationFrame(updatePositions);
+  if (!isUpdatingPositions) {
+    isUpdatingPositions = true;
+    window.requestAnimationFrame(updatePositions);
+  }
 });
 
 // Generates the sliding pizzas when the page loads.
