@@ -45,6 +45,8 @@ var ngrok = require('ngrok');
 
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
 
         /**
@@ -379,7 +381,7 @@ module.exports = function(grunt) {
      */
     grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
         var done = this.async();
-        var port = 8888;
+        var port = 8080;
         ngrok.connect(port, function(err, url) {
             if (err !== null) {
                 grunt.fail.fatal(err);
@@ -395,6 +397,7 @@ module.exports = function(grunt) {
     grunt.registerTask('cleandist', ['clean', 'mkdir', 'copy:diststruct']);
     grunt.registerTask('minimize', ['cssmin', 'uglify', 'clean:build', 'htmlmin', 'replace', 'clean:build']);
     grunt.registerTask('copyfiles', ['copy:html', 'copy:css', 'copy:images', 'copy:javascript']);
-    grunt.registerTask('default', ['cleandist', 'minimize', 'copy:images', 'psi-ngrok']); // 'responsive_images'
+    grunt.registerTask('analyze', ['psi-ngrok']);
+    grunt.registerTask('default', ['cleandist', 'minimize', 'copy:images']); // 'responsive_images'
 
 };
