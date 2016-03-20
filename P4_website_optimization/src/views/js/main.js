@@ -299,7 +299,7 @@ var pizzaSliderInfo = {
     "size": 50,
     "label": "Large"
   }
-}
+};
 
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
