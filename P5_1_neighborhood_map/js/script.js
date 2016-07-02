@@ -1,3 +1,6 @@
+var GOOGLE_API_KEY = 'AIzaSyCKgloCE2Gsr11WjykHC9E3wEE-_w7UHKo';
+var NEW_YORK_TIMES_API_KEY = 'b43b261fe61e9cc0c49a4d45d5198b70:10:74760062';
+
 function loadData() {
 
     var $body = $('body');
@@ -28,9 +31,8 @@ function loadData() {
     }
 
     // NYTimes
-    var key = "b43b261fe61e9cc0c49a4d45d5198b70:10:74760062";
     var articleSearch = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
-    $.getJSON(articleSearch + "?&q=" + city + "&page=0&sort=newest&api-key=" + key, function(data) {
+    $.getJSON(articleSearch + "?&q=" + city + "&page=0&sort=newest&api-key=" + NEW_YORK_TIMES_API_KEY, function(data) {
         $nytHeaderElem.text('NY Times articles about ' + city);
         console.log(data.response);
         var items = [];
@@ -84,4 +86,44 @@ function loadData() {
     return false;
 }
 
+function initMap() {
+    var map = new google.maps.Map(document.getElementById("map_canvas"), {
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://beauchef.github.io/udacity/P5/gpx/2013-09-22_0831.gpx",
+        dataType: "xml",
+        success: function(xml) {
+            var points = [];
+            var bounds = new google.maps.LatLngBounds ();
+            $(xml).find("trkpt").each(function() {
+                var lat = $(this).attr("lat");
+                var lon = $(this).attr("lon");
+                var p = new google.maps.LatLng(lat, lon);
+                points.push(p);
+                bounds.extend(p);
+            });
+
+            var poly = new google.maps.Polyline({
+                // use your own style here
+                path: points,
+                strokeColor: "#FF00AA",
+                strokeOpacity: .7,
+                strokeWeight: 4
+            });
+
+            poly.setMap(map);
+
+            // fit bounds to track
+            map.fitBounds(bounds);
+        }
+    });
+}
+
 $('#form-container').submit(loadData);
+
+$(function() {
+    // initialize();
+});
