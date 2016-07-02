@@ -90,7 +90,30 @@ function initMap() {
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
         mapTypeId: google.maps.MapTypeId.TERRAIN
     });
-
+    var marathonStart = {lat: 45.5206909, lng: -73.5353562};
+    var marathonEnd = {lat: 45.5268889, lng: -73.5704092};
+    var markerStart = new google.maps.Marker({
+        position: marathonStart,
+        map: map,
+        title: 'Marathon Start'
+    });
+    var infoStart = new google.maps.InfoWindow({
+        content: 'Marathon start on the Jacques-Cartier Bridge.'
+    });
+    markerStart.addListener('click', function() {
+        infoStart.open(map, markerStart);
+    });
+    var markerEnd = new google.maps.Marker({
+        position: marathonEnd,
+        map: map,
+        title: 'Marathon End'
+    });
+    var infoEnd = new google.maps.InfoWindow({
+        content: 'Marathon ends at the Parc Lafontaine.'
+    });
+    markerEnd.addListener('click', function() {
+        infoEnd.open(map, markerEnd);
+    });
     $.ajax({
         type: "GET",
         url: "http://beauchef.github.io/udacity/P5/gpx/2013-09-22_0831.gpx",
